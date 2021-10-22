@@ -3,11 +3,15 @@ import "./App.css";
 import AddContact from "./components/AddContact/AddContact";
 import ContactList from "./components/ContactList/Contactlist";
 import { Switch, Route } from "react-router-dom";
+import ContactDetail from "./components/ContactDetail/ContactDetail";
 function App() {
   const [contacts, setContacts] = useState([]);
 
   const addContactHandler = (contact) => {
-    setContacts([...contacts, { id: Math.random() * 100, ...contact }]);
+    setContacts([
+      ...contacts,
+      { id: Math.ceil(Math.random() * 100), ...contact },
+    ]);
   };
 
   const deleteContactHandler = (id) => {
@@ -29,6 +33,7 @@ function App() {
       <main className="App">
         <h2>Contact App</h2>
         <Switch>
+          <Route path="/user/:id" component={ContactDetail} />
           <Route
             path="/add"
             render={(props) => (
