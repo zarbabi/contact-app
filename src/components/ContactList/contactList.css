@@ -31,3 +31,24 @@
   height: 50px;
   margin-right: 5px;
 }
+
+.listHeader {
+  display: flex;
+  margin: top 20px;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+.listHeader button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background-color: #009b2e;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.listWrapper {
+  display: flex;
+  justify-content: center;
+}
