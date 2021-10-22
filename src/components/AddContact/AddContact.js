@@ -1,17 +1,19 @@
 import { useState } from "react";
 
-const AddContact = () => {
+const AddContact = ({ addContactHandler }) => {
   const [contact, setContact] = useState({ name: "", email: "" });
 
   const ChangeHandler = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value });
   };
-
-  const addContactHandler = (e) => {
+  const submitForm = (e) => {
     e.preventDefault();
+    addContactHandler(contact);
+    setContact({ name: "", email: "" });
   };
+
   return (
-    <form onSubmit={addContactHandler}>
+    <form onSubmit={submitForm}>
       <div>
         <label>Name:</label>
         <input
@@ -30,7 +32,7 @@ const AddContact = () => {
           onChange={ChangeHandler}
         />
       </div>
-      <button type="submit">Save</button>
+      <button type="submit">Add Contact</button>
     </form>
   );
 };
