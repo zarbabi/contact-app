@@ -13,16 +13,16 @@ function App() {
 
   const addContactHandler = async (contact) => {
     try {
-      setContacts([...contacts, { id: new Date().getTime(), ...contact }]);
-      await addOneContact(contact);
+      const { data } = await addOneContact(contact);
+      setContacts([...contacts, data]);
     } catch (error) {}
   };
 
   const deleteContactHandler = async (id) => {
     try {
+      await deleteOneContact(id);
       const filteredContacts = contacts.filter((c) => c.id !== id);
       setContacts(filteredContacts);
-      await deleteOneContact(id);
     } catch (error) {}
   };
 
