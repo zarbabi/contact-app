@@ -6,7 +6,7 @@
 
 .item {
   background-color: #fff;
-  width: 20rem;
+  width: 30rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,6 +24,11 @@
   color: #dc2626;
   padding: 5px 10px;
   border-radius: 5px;
+}
+.item .editBtn{
+  margin-right: 1rem;
+  border: 1px solid #009b2e;
+  color: #009b2e;
 }
 
 .item img {
