@@ -8,6 +8,7 @@ import getContacts from "./services/getContactsService";
 import deleteOneContact from "./services/deleteContactService";
 import addOneContact from "./services/addContactService";
 import EditContact from "./components/EditContact/EditContact";
+import updateContact from "./services/updateContact";
 
 function App() {
   const [contacts, setContacts] = useState([]);
@@ -17,6 +18,12 @@ function App() {
       const { data } = await addOneContact(contact);
       setContacts([...contacts, data]);
     } catch (error) {}
+  };
+
+  const editContactHandler = async (contact, id) => {
+    await updateContact(id, contact);
+    const { data } = await getContacts();
+    setContacts(data);
   };
 
   const deleteContactHandler = async (id) => {
@@ -48,7 +55,12 @@ function App() {
       <main className="App">
         <h2>Contact App</h2>
         <Switch>
-          <Route path="/edit/:id" component={EditContact} />
+          <Route
+            path="/edit/:id"
+            render={(props) => (
+              <EditContact editContactHandler={editContactHandler} {...props} />
+            )}
+          />
           <Route path="/user/:id" component={ContactDetail} />
           <Route
             path="/add"

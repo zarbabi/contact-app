@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import getOneContact from "../../services/getOneContact";
 //import "./addContact.css";
-const EditContact = ({ addContactHandler, history, match }) => {
+const EditContact = ({ editContactHandler, history, match }) => {
   const [contact, setContact] = useState({ name: "", email: "" });
 
   const ChangeHandler = (e) => {
@@ -13,7 +13,7 @@ const EditContact = ({ addContactHandler, history, match }) => {
       return;
     }
     e.preventDefault();
-    addContactHandler(contact);
+    editContactHandler(contact, match.params.id);
     setContact({ name: "", email: "" });
     history.push("/");
   };
@@ -48,7 +48,7 @@ const EditContact = ({ addContactHandler, history, match }) => {
           onChange={ChangeHandler}
         />
       </div>
-      <button type="submit">Edit Contact</button>
+      <button type="submit">Update Contact</button>
     </form>
   );
 };
