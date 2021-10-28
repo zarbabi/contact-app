@@ -7,11 +7,13 @@ import deleteOneContact from "../../services/deleteContactService";
 const ContactList = (props) => {
   const [contacts, setContacts] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [allContacts, setAllContacts] = useState(null);
 
   useEffect(() => {
     const fetchContacts = async () => {
       const { data } = await getContacts();
       setContacts(data);
+      setAllContacts(data);
     };
     try {
       fetchContacts();
@@ -29,13 +31,17 @@ const ContactList = (props) => {
   const searchHandler = (e) => {
     setSearchTerm(e.target.value);
     const search = e.target.value;
-    const filteredContacts = contacts.filter((c) => {
-      return Object.values(c)
-        .join("")
-        .toLowerCase()
-        .includes(search.toLowerCase());
-    });
-    setContacts(filteredContacts);
+    if (search !== "") {
+      const filteredContacts = allContacts.filter((c) => {
+        return Object.values(c)
+          .join("")
+          .toLowerCase()
+          .includes(search.toLowerCase());
+      });
+      setContacts(filteredContacts);
+    } else {
+      setContacts(allContacts);
+    }
   };
 
   return (
