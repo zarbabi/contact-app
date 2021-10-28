@@ -1,21 +1,26 @@
 import { useEffect, useState } from "react";
+import getContacts from "../../services/getContactsService";
 import getOneContact from "../../services/getOneContact";
-//import "./addContact.css";
-const EditContact = ({ editContactHandler, history, match }) => {
+import updateContact from "../../services/updateContact";
+
+const EditContact = ({ history, match }) => {
   const [contact, setContact] = useState({ name: "", email: "" });
 
   const ChangeHandler = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value });
   };
-  const submitForm = (e) => {
+
+  const submitForm = async (e) => {
     if (!contact.name || !contact.email) {
       alert("all fildes are mandatory ");
       return;
     }
     e.preventDefault();
-    editContactHandler(contact, match.params.id);
-    setContact({ name: "", email: "" });
-    history.push("/");
+    try {
+      await updateContact(match.params.id, contact);
+      await getContacts();
+      history.push("/");
+    } catch (error) {}
   };
 
   useEffect(() => {
