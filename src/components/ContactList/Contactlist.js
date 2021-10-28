@@ -6,6 +6,7 @@ import getContacts from "../../services/getContactsService";
 import deleteOneContact from "../../services/deleteContactService";
 const ContactList = (props) => {
   const [contacts, setContacts] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -25,6 +26,18 @@ const ContactList = (props) => {
     } catch (error) {}
   };
 
+  const searchHandler = (e) => {
+    setSearchTerm(e.target.value);
+    const search = e.target.value;
+    const filteredContacts = contacts.filter((c) => {
+      return Object.values(c)
+        .join("")
+        .toLowerCase()
+        .includes(search.toLowerCase());
+    });
+    setContacts(filteredContacts);
+  };
+
   return (
     <section className="listWrapper">
       <div className="contactList">
@@ -33,6 +46,9 @@ const ContactList = (props) => {
           <Link to="/add">
             <button>Add</button>
           </Link>
+        </div>
+        <div>
+          <input type="text" value={searchTerm} onChange={searchHandler} />
         </div>
         {contacts ? (
           contacts.map((contact) => {
